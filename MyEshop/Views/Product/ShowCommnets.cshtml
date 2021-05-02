@@ -1,0 +1,38 @@
+﻿@model IEnumerable<DataLayer.Product_Commnet>
+
+@foreach (var item in Model.Where(c => c.ParentID == null))
+{
+    <li>
+        <a onclick="ReplayCommnet(@item.CommnetID)" class="reply-button">پاسخ</a>
+
+        <img src="/Content/img/avatar.jpg" width="65">
+        <div>
+            <h5>ارسال شده از : @item.Name در تاریخ : @item.CreateDate </h5>
+            <p>
+                @item.Commnet
+            </p>
+        </div>
+        <div class="clearfix"></div>
+        @if (Model.Any(c => c.ParentID == item.CommnetID))
+        {
+            <ul>
+               @foreach (var sub in Model.Where(c => c.ParentID == item.CommnetID))
+               {
+                   <li>
+
+                       <img src="/Content/img/avatar.jpg" width="65">
+                       <div>
+                           <h5>ارسال شده از : @sub.Name در تاریخ : @sub.CreateDate </h5>
+                           <p>
+                               @item.Commnet
+                           </p>
+                       </div>
+                       <div class="clearfix"></div>
+                   </li>
+               }
+               
+            </ul>
+        }
+
+    </li>
+}

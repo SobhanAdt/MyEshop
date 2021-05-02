@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DataLayer.Product_Groups>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupTitle)
+        </th>
+        <th>
+            زیر گروه
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td id="group_@(item.GroupID)">
+                @Html.DisplayFor(modelItem => item.GroupTitle)
+            </td>
+            <td>
+                @if (item.Product_Groups1.Any())
+                {
+                    <ul>
+                        @foreach (var subGroup in item.Product_Groups1)
+                        {
+                            <li>
+                                @subGroup.GroupTitle  
+                                <a class="btn btn-warning btn-xs" href="@Url.Action("Edit",new {id=subGroup.GroupID})">
+                                    <i class="glyphicon glyphicon-edit"> </i>
+                                </a>
+
+                                <a class="btn btn-danger btn-xs" href="@Url.Action("Delete",new {id=subGroup.GroupID})">
+                                    <i class="glyphicon glyphicon-trash"> </i>
+                                </a>
+
+                            </li>
+                        }
+                    </ul>
+                }
+            </td>
+            <td>
+                <a class="btn btn-primary btn-xs" href="@Url.Action("Create", new { id = item.GroupID })">
+                    <i class="glyphicon glyphicon-plus"> </i>
+                </a>
+                <a class="btn btn-warning btn-xs" href="@Url.Action("Edit",new {id=item.GroupID})">
+                    <i class="glyphicon glyphicon-edit"> </i>
+                </a>
+                <a class="btn btn-danger btn-xs" href="@Url.Action("Delete",new {id=item.GroupID})">
+                    <i class="glyphicon glyphicon-remove"> </i>
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
